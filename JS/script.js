@@ -4,13 +4,13 @@ const totalIncome = document.getElementById("total-income");
 const totalExpense = document.getElementById("total-expense");
 const balance = document.getElementById("balance");
 
-const currentUser = JSON.parse(localStorage.getItem("loggedInUser"));
-const storageKey = `transactions_${currentUser?.email}`;
-document.getElementById("welcome-message").textContent = `Welcome, ${currentUser.email}`;
+const user = JSON.parse(localStorage.getItem("loggedInUser"));
+const token = localStorage.getItem("token");
+document.getElementById("welcome-message").textContent = `Welcome, ${user.email}`;
 
-let transactions = JSON.parse(localStorage.getItem(storageKey)) || [];
-
+let transactions = [];
 let currencySymbol = localStorage.getItem("currencySymbol") || "$";
+
 const currencySelect = document.getElementById("currency");
 const customCurrencyInput = document.getElementById("custom-currency");
 
@@ -62,23 +62,62 @@ function updateUI() {
   balance.textContent = currencySymbol + (income - expense).toFixed(2);
 }
 
-form.addEventListener("submit", (e) => {
+async function fetchTransactions() {
+  try {
+    const res = await fetch("http://localhost:5000/api/transactions", {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    const data = await res.json();
+    transactions = data;
+    updateUI();
+  } catch (err) {
+    console.error("Failed to load transactions", err);
+  }
+}
+
+form.addEventListener("submit", async (e) => {
   e.preventDefault();
   const description = document.getElementById("description").value;
   const amount = document.getElementById("amount").value;
   const type = document.getElementById("type").value;
   const date = new Date().toLocaleDateString();
 
-  transactions.push({ description, amount, type, date });
-  localStorage.setItem(storageKey, JSON.stringify(transactions));
-  form.reset();
-  updateUI();
+  try {
+    const res = await fetch("http://localhost:5000/api/transactions", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({ description, amount, type, date }),
+    });
+
+    if (res.ok) {
+      await fetchTransactions();
+      form.reset();
+    } else {
+      alert("Failed to add transaction");
+    }
+  } catch (err) {
+    console.error("Submit error", err);
+  }
 });
 
-function deleteTransaction(index) {
-  transactions.splice(index, 1);
-  localStorage.setItem(storageKey, JSON.stringify(transactions));
-  updateUI();
+async function deleteTransaction(index) {
+  try {
+    const res = await fetch(`http://localhost:5000/api/transactions/${index}`, {
+      method: "DELETE",
+      headers: { Authorization: `Bearer ${token}` },
+    });
+
+    if (res.ok) {
+      await fetchTransactions();
+    } else {
+      alert("Failed to delete transaction");
+    }
+  } catch (err) {
+    console.error("Delete error", err);
+  }
 }
 
-updateUI();
+fetchTransactions();
