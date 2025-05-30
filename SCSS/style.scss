@@ -1,0 +1,189 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+$green-1: #0A5C36; // Castleton green
+$green-2: #0F5132;
+$green-3: #14452F; // British racing green
+$green-4: #18392B; // Dark green
+$green-5: #1D2E28; // Gunmetal
+
+$background: $green-5;
+$text-light: #ffffff;
+$accent: $green-1;
+
+body {
+  margin: 0;
+  font-family: "Poppins", Arial, sans-serif;
+  background-color: #1D2E28; // Gunmetal
+  color: white;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+#log-div {
+  align-self: last baseline;
+  margin-right: 3vw;
+  margin-top: 3vh;
+
+    #logout-btn {
+    background-color: #0F5132;
+    color: white;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+}
+
+.currency-wrapper {
+  margin-top: 5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.container {
+  background-color: #0F5132; // Castleton green
+  padding: 2rem;
+  margin-top: 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  text-align: center;
+  width: 100%;
+  max-width: 500px;
+}
+
+input {
+  width: 70%;
+  padding: 0.7rem;
+  margin-top: 0.8rem;
+  border-radius: 8px;
+  border: none;
+  font-size: 1rem;
+}
+
+select {
+  width: 30%;
+  padding: 0.7rem;
+  margin-top: 0.8rem;
+  border-radius: 8px;
+  border: none;
+  font-size: 1rem;
+}
+
+#submit {
+  width: 30%;
+  padding: 0.7rem;
+  margin-top: 0.8rem;
+  border-radius: 8px;
+  border: none;
+  font-size: 1rem;
+  background-color: #0A5C36; // Castleton green
+  color: white;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #14452F; // British racing green
+  }
+}
+
+// Summary Section
+.summary {
+  margin-top: 2rem;
+  text-align: center;
+
+  p {
+    margin: 0.3rem 0;
+  }
+
+  span {
+    font-weight: bold;
+  }
+
+  #total-expense {
+    color: red;
+  }
+
+  #balance {
+    color: gold;
+  }
+}
+
+#transaction-list {
+  margin-top: 5vh;
+  text-align: left;
+}
+
+
+// Login and Sign Up Pages //
+
+.auth-page {
+  background-color: $green-5;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+sub {
+  margin-bottom: 5vh;
+  font-size: 1.1rem;
+  font-style: italic;
+}
+
+.auth-box {
+  background-color: $green-3;
+  padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+
+  h2 {
+    margin-bottom: 1rem;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    input {
+      margin: 0.5rem 0;
+      padding: 0.6rem;
+      border-radius: 0.4rem;
+      border: none;
+      font-size: 1rem;
+    }
+
+    button {
+      width: 75%;
+      margin-top: 1rem;
+      background-color: $accent;
+      color: $text-light;
+      padding: 0.6rem;
+      border: none;
+      border-radius: 0.4rem;
+      cursor: pointer;
+
+      &:hover {
+        background-color: darken($accent, 10%);
+      }
+    }
+  }
+
+  a {
+    display: inline-block;
+    margin-top: 1rem;
+    color: lighten($accent, 10%);
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}

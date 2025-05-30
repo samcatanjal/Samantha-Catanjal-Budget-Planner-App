@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pocket Friendly | A Personal Budget Planner</title>
+
+    <link rel="stylesheet" href="/SCSS/style.css">
+</head>
+<body>
+    <div id="log-div">
+        <button id="logout-btn">Logout</button>
+    </div>
+
+    <div class="currency-wrapper">
+    <label for="currency">Currency Symbol:</label>
+    <select id="currency">
+        <option value="$">$ USD</option>
+        <option value="£">£ GBP</option>
+        <option value="€">€ EUR</option>
+        <option value="₹">₹ INR</option>
+        <option value="¥">¥ JPY</option>
+        <option value="custom">Custom</option>
+    </select>
+
+    <input type="text" id="custom-currency" placeholder="Enter custom symbol" maxlength="3">
+</div>
+
+    <div class="container">
+        <h1>Pocket Friendly</h1>
+        <p id="welcome-message"></p>
+        <form id="budget-form">
+            <input type="text" id="description" placeholder="Description" required />
+            <input type="number" id="amount" placeholder="Amount" required />
+            <select id="type">
+                <option value="income">Income</option>
+                <option value="expense">Expense</option>
+            </select>
+            <button id="submit" type="submit">Add</button>
+        </form>
+
+        <div class="summary">
+            <p>Total Income: <span id="total-income">0</span></p>
+            <p>Total Expense: <span id="total-expense">0</span></p>
+            <p>Balance: <span id="balance">0</span></p>
+        </div>
+
+        <ul id="transaction-list"></ul>
+    </div>
+
+    <script src="/JS/info.js"></script>
+    <script src="/JS/script.js"></script>
+</body>
+</html>
