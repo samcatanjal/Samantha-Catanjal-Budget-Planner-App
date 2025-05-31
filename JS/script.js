@@ -64,7 +64,7 @@ function updateUI() {
 
 async function fetchTransactions() {
   try {
-    const res = await fetch("http://localhost:5000/api/transactions", {
+    const res = await fetch("https://pocket-friendly-backend.onrender.com/api/transactions", {
       headers: { Authorization: `Bearer ${token}` },
     });
     const data = await res.json();
@@ -83,7 +83,7 @@ form.addEventListener("submit", async (e) => {
   const date = new Date().toLocaleDateString();
 
   try {
-    const res = await fetch("http://localhost:5000/api/transactions", {
+    const res = await fetch("https://pocket-friendly-backend.onrender.com/api/transactions", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -105,7 +105,7 @@ form.addEventListener("submit", async (e) => {
 
 async function deleteTransaction(index) {
   try {
-    const res = await fetch(`http://localhost:5000/api/transactions/${index}`, {
+    const res = await fetch(`https://pocket-friendly-backend.onrender.com/api/transactions/${index}`, {
       method: "DELETE",
       headers: { Authorization: `Bearer ${token}` },
     });
