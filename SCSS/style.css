@@ -2,8 +2,8 @@
 body {
   margin: 0;
   font-family: "Poppins", Arial, sans-serif;
-  background-color: #1D2E28;
-  color: white;
+  background-color: #00b4d8;
+  color: #ffffff;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -17,8 +17,8 @@ body {
   margin-top: 3vh;
 }
 #log-div #logout-btn {
-  background-color: #0F5132;
-  color: white;
+  background-color: #caf0f8;
+  color: #023e8a;
   padding: 0.5rem 1rem;
   border: none;
   border-radius: 8px;
@@ -34,7 +34,8 @@ body {
 }
 
 .container {
-  background-color: #0F5132;
+  background-color: #caf0f8;
+  color: #023e8a;
   padding: 2rem;
   margin-top: 2rem;
   border-radius: 1rem;
@@ -69,12 +70,12 @@ select {
   border-radius: 8px;
   border: none;
   font-size: 1rem;
-  background-color: #0A5C36;
+  background-color: #0098c7;
   color: white;
   cursor: pointer;
 }
 #submit:hover {
-  background-color: #14452F;
+  background-color: #0098c7;
 }
 
 .summary {
@@ -100,7 +101,7 @@ select {
 }
 
 .auth-page {
-  background-color: #1D2E28;
+  background-color: #00b4d8;
   min-height: 100vh;
   display: flex;
   justify-content: center;
@@ -114,7 +115,8 @@ sub {
 }
 
 .auth-box {
-  background-color: #14452F;
+  background-color: #caf0f8;
+  color: #03045e;
   padding: 2rem;
   border-radius: 1rem;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
@@ -140,20 +142,20 @@ sub {
 .auth-box form button {
   width: 75%;
   margin-top: 1rem;
-  background-color: #0A5C36;
-  color: #ffffff;
+  background-color: #0096c7;
+  color: #1D2E28;
   padding: 0.6rem;
   border: none;
   border-radius: 0.4rem;
   cursor: pointer;
 }
 .auth-box form button:hover {
-  background-color: #052e1b;
+  background-color: #007094;
 }
 .auth-box a {
   display: inline-block;
   margin-top: 1rem;
-  color: #0f8a51;
+  color: #00bcfa;
   text-decoration: none;
 }
 .auth-box a:hover {
