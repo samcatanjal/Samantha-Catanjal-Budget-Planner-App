@@ -1,3 +1,42 @@
+const budgetForm = document.getElementById('budget-form');
+
+if (budgetForm) {
+  budgetForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const description = document.getElementById('description').value.trim();
+    const amount = parseFloat(document.getElementById('amount').value);
+    const type = document.getElementById('type').value;
+    const token = localStorage.getItem('token');
+
+    if (!token) {
+      alert('Please login again.');
+      window.location.href = '/index.html';
+      return;
+    }
+
+    try {
+      const res = await fetch('https://pocket-friendly-backend.onrender.com/api/transactions', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({ description, amount, type }),
+      });
+
+      if (!res.ok) throw new Error('Failed to add transaction');
+
+      // Optionally reload user data or append transaction to list
+      // For simplicity, reload page or re-fetch user data
+      window.location.reload();
+    } catch (error) {
+      console.error(error);
+      alert('Failed to add transaction');
+    }
+  });
+}
+
 // Currency API //
 
 const API_KEY = "43daa10f295491ccbdb64fa7";
@@ -68,3 +107,14 @@ converterForm1.addEventListener("submit", async (e) => {
 populateCurrencyDropdowns();
 
 
+// Logout //
+
+const logoutBtn = document.querySelector('#header button');
+
+if (logoutBtn) {
+  logoutBtn.addEventListener('click', () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('email');
+    window.location.href = '/index.html';
+  });
+}
