@@ -1,123 +1,70 @@
-const form = document.getElementById("budget-form");
-const list = document.getElementById("transaction-list");
-const totalIncome = document.getElementById("total-income");
-const totalExpense = document.getElementById("total-expense");
-const balance = document.getElementById("balance");
+// Currency API //
 
-const user = JSON.parse(localStorage.getItem("loggedInUser"));
-const token = localStorage.getItem("token");
-document.getElementById("welcome-message").textContent = `Welcome, ${user.email}`;
+const API_KEY = "43daa10f295491ccbdb64fa7";
 
-let transactions = [];
-let currencySymbol = localStorage.getItem("currencySymbol") || "$";
+const fromCurrency1 = document.getElementById("from-currency-1");
+const toCurrency1 = document.getElementById("to-currency-1");
+const convertAmount1 = document.getElementById("amount-1");
+const converterForm1 = document.getElementById("converter-form-1");
+const conversionResult1 = document.getElementById("result-1");
 
-const currencySelect = document.getElementById("currency");
-const customCurrencyInput = document.getElementById("custom-currency");
-
-if (currencySymbol.length > 1 || !["$", "£", "€", "₹", "¥"].includes(currencySymbol)) {
-  currencySelect.value = "custom";
-  customCurrencyInput.style.display = "block";
-  customCurrencyInput.value = currencySymbol;
-} else {
-  currencySelect.value = currencySymbol;
-}
-
-currencySelect.addEventListener("change", (e) => {
-  const value = e.target.value;
-  if (value === "custom") {
-    customCurrencyInput.style.display = "block";
-    customCurrencyInput.focus();
-  } else {
-    customCurrencyInput.style.display = "none";
-    currencySymbol = value;
-    localStorage.setItem("currencySymbol", currencySymbol);
-    updateUI();
-  }
-});
-
-customCurrencyInput.addEventListener("input", (e) => {
-  currencySymbol = e.target.value || "$";
-  localStorage.setItem("currencySymbol", currencySymbol);
-  updateUI();
-});
-
-function updateUI() {
-  list.innerHTML = "";
-  let income = 0, expense = 0;
-
-  transactions.forEach((t, index) => {
-    const li = document.createElement("li");
-    li.classList.add(t.type);
-    li.innerHTML = `
-      ${t.description} (${t.date}) <strong>${currencySymbol}${t.amount}</strong>
-      <button onclick="deleteTransaction(${index})">X</button>
-    `;
-    list.appendChild(li);
-    if (t.type === "income") income += parseFloat(t.amount);
-    else expense += parseFloat(t.amount);
-  });
-
-  totalIncome.textContent = currencySymbol + income.toFixed(2);
-  totalExpense.textContent = currencySymbol + expense.toFixed(2);
-  balance.textContent = currencySymbol + (income - expense).toFixed(2);
-}
-
-async function fetchTransactions() {
+async function populateCurrencyDropdowns() {
   try {
-    const res = await fetch("https://pocket-friendly-backend.onrender.com/api/transactions", {
-      headers: { Authorization: `Bearer ${token}` },
-    });
+    const res = await fetch(`https://v6.exchangerate-api.com/v6/${API_KEY}/codes`);
     const data = await res.json();
-    transactions = data;
-    updateUI();
+
+    if (!data.supported_codes) throw new Error("Currency list not available");
+
+    const currencies = data.supported_codes;
+
+    currencies.forEach(([code]) => {
+      const opt1 = document.createElement("option");
+      opt1.value = code;
+      opt1.textContent = code;
+      fromCurrency1.appendChild(opt1);
+
+      const opt2 = document.createElement("option");
+      opt2.value = code;
+      opt2.textContent = code;
+      toCurrency1.appendChild(opt2);
+    });
+
+    fromCurrency1.value = "AED";
+    toCurrency1.value = "PHP";
   } catch (err) {
-    console.error("Failed to load transactions", err);
+    console.error("Failed to load currency list", err);
+    conversionResult1.textContent = "Failed to load currency list.";
   }
 }
 
-form.addEventListener("submit", async (e) => {
+converterForm1.addEventListener("submit", async (e) => {
   e.preventDefault();
-  const description = document.getElementById("description").value;
-  const amount = document.getElementById("amount").value;
-  const type = document.getElementById("type").value;
-  const date = new Date().toLocaleDateString();
+
+  const amount = parseFloat(convertAmount1.value);
+  const from = fromCurrency1.value;
+  const to = toCurrency1.value;
+
+  if (!amount || amount <= 0) {
+    conversionResult1.textContent = "Please enter a valid amount.";
+    return;
+  }
 
   try {
-    const res = await fetch("https://pocket-friendly-backend.onrender.com/api/transactions", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify({ description, amount, type, date }),
-    });
+    const res = await fetch(
+      `https://v6.exchangerate-api.com/v6/${API_KEY}/pair/${from}/${to}/${amount}`
+    );
+    const data = await res.json();
 
-    if (res.ok) {
-      await fetchTransactions();
-      form.reset();
-    } else {
-      alert("Failed to add transaction");
-    }
+    if (data.result === "error") throw new Error("Conversion error");
+
+    const result = data.conversion_result;
+    conversionResult1.textContent = `${amount} ${from} = ${result.toFixed(2)} ${to}`;
   } catch (err) {
-    console.error("Submit error", err);
+    console.error("Conversion failed", err);
+    conversionResult1.textContent = "Conversion failed. Try again.";
   }
 });
 
-async function deleteTransaction(index) {
-  try {
-    const res = await fetch(`https://pocket-friendly-backend.onrender.com/api/transactions/${index}`, {
-      method: "DELETE",
-      headers: { Authorization: `Bearer ${token}` },
-    });
+populateCurrencyDropdowns();
 
-    if (res.ok) {
-      await fetchTransactions();
-    } else {
-      alert("Failed to delete transaction");
-    }
-  } catch (err) {
-    console.error("Delete error", err);
-  }
-}
 
-fetchTransactions();

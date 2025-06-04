@@ -1,0 +1,102 @@
+$primary-color: #1d3557;
+$bg-color: #f8f9fa;
+$card-bg: #fff;
+$text-dark: #333;
+$radius: 12px;
+
+$income-color: #2ecc71;
+$expense-color: #e74c3c;
+$balance-color: #f39c12;
+
+$transition: all 0.3s ease;
+
+:root.dark {
+  --bg-color: #1e1e1e;
+  --card-bg: #2c2c2c;
+  --text-dark: #f8f8f8;
+}
+
+.auth-page {
+  font-family: 'Inter', sans-serif;
+  background: var(--bg-color, $bg-color);
+  color: var(--text-dark, $text-dark);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  min-height: 100vh;
+  transition: $transition;
+
+  h1 {
+    font-size: 2rem;
+    color: $primary-color;
+    margin-bottom: 0.5rem;
+  }
+
+  sub {
+    font-size: 1rem;
+    color: #888;
+    margin-bottom: 2rem;
+  }
+
+  .auth-box {
+    background: var(--card-bg, $card-bg);
+    padding: 2rem;
+    border-radius: $radius;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    width: 100%;
+    max-width: 400px;
+
+    h2 {
+      margin-bottom: 1.5rem;
+      color: $primary-color;
+      text-align: center;
+    }
+
+    form {
+      display: grid;
+      gap: 1rem;
+
+      input {
+        padding: 0.7rem;
+        border: 1px solid #ccc;
+        border-radius: $radius;
+        background: var(--bg-color, $bg-color);
+        font-size: 1rem;
+        color: var(--text-dark, $text-dark);
+      }
+
+      button {
+        background: $primary-color;
+        color: white;
+        padding: 0.7rem;
+        border: none;
+        border-radius: $radius;
+        font-weight: bold;
+        cursor: pointer;
+        transition: $transition;
+
+        &:hover {
+          opacity: 0.9;
+        }
+      }
+
+      p {
+        text-align: center;
+        font-size: 0.9rem;
+        margin-top: 1rem;
+
+        a {
+          color: $primary-color;
+          text-decoration: none;
+          font-weight: 500;
+
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,53 +1,81 @@
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Pocket Friendly | A Personal Budget Planner</title>
-
-        <link rel="stylesheet" href="/SCSS/style.css">
-    </head>
-    <body>
-        <div id="log-div">
-            <button id="logout-btn">Logout</button>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pocket Friendly | Budget Tracker</title>
+  <link rel="stylesheet" href="/SCSS/style.css">
+</head>
+<body>
+    <main>
+        <div id="header">
+            <button>Logout</button>
+        </div>
+        <div class="top-bar">
+            <div class="currency-wrapper">
+            <label for="currency">Currency Symbol:</label>
+            <select id="currency">
+                <option value="$">$ USD</option>
+                <option value="£">£ GBP</option>
+                <option value="€">€ EUR</option>
+                <option value="₹">₹ INR</option>
+                <option value="¥">¥ JPY</option>
+                <option value="custom">Custom</option>
+            </select>
+            <input type="text" id="custom-currency" placeholder="Custom" maxlength="3" />
+            </div>
+            <div class="dark-toggle">
+            <label class="switch">
+                <input type="checkbox" id="darkModeToggle" />
+                <span class="slider round"></span>
+            </label>
+            <span class="dark-label">Dark mode</span>
+            </div>
         </div>
 
-        <div class="currency-wrapper">
-        <label for="currency">Currency Symbol:</label>
-        <select id="currency">
-            <option value="$">$ USD</option>
-            <option value="£">£ GBP</option>
-            <option value="€">€ EUR</option>
-            <option value="₹">₹ INR</option>
-            <option value="¥">¥ JPY</option>
-            <option value="custom">Custom</option>
-        </select>
-
-        <input type="text" id="custom-currency" placeholder="Enter custom symbol" maxlength="3">
-    </div>
-        <div class="container">
-        <h1>Pocket Friendly</h1>
-            <p id="welcome-message"></p>
-            <form id="budget-form">
-                <input type="text" id="description" placeholder="Description" required />
-                <input type="number" id="amount" placeholder="Amount" required />
-                <select id="type">
+        <div class="layout">
+            <div class="main-card">
+                <h1>Pocket Friendly</h1>
+                <p id="welcome-message">Welcome, user@example.com</p>
+                <form id="budget-form">
+                    <input type="text" id="description" placeholder="Description" />
+                    <input type="number" id="amount" placeholder="Amount" />
+                    <select id="type">
                     <option value="income">Income</option>
                     <option value="expense">Expense</option>
-                </select>
-                <button id="submit" type="submit">Add</button>
-            </form>
-
-            <div class="summary">
-                <p>Total Income: <span id="total-income">0</span></p>
-                <p>Total Expense: <span id="total-expense">0</span></p>
-                <p>Balance: <span id="balance">0</span></p>
+                    </select>
+                    <button type="submit" id="submit">Add</button>
+                </form>
+                <div class="summary">
+                    <p>Total Income: <span class="income" id="total-income">$0.00</span></p>
+                    <p>Total Expense: <span class="expense" id="total-expense">$0.00</span></p>
+                    <p>Balance: <span class="balance" id="balance">$0.00</span></p>
+                </div>
+                <div class="list-container">
+                    <div id="transaction-list"></div>
+                </div>
             </div>
 
-            <ul id="transaction-list"></ul>
+            <div class="aside-column">
+                <div class="aside-card">
+                    <h2>Currency Converter</h2>
+                    <form id="converter-form-1">
+                        <input type="number" id="amount-1" placeholder="Amount" />
+                        <div class="row">
+                        <select id="from-currency-1"></select>
+                        <select id="to-currency-1"></select>
+                        </div>
+                        <button type="submit">Convert</button>
+                        <p id="result-1" class="conversion-result"></p>
+                    </form>
+                </div>
+                <div class="aside-card">
+                    <h2>Categories</h2>
+                </div>
+            </div>
         </div>
+    </main>
 
-        <script src="/JS/info.js"></script>
-        <script src="/JS/script.js"></script>
-    </body>
-    </html>
+  <script src="/JS/script.js"></script>
+</body>
+</html>

@@ -1,191 +1,254 @@
-@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+$primary-color: #1d3557;
+$bg-color: #f8f9fa;
+$card-bg: #fff;
+$text-dark: #333;
+$radius: 12px;
 
-$blue-1: #0096c7;
-$blue-2: #0096c7;
-$white-1: #caf0f8;
-$blue-3: #023e8a;
-$blue-4: #00b4d8;
+$income-color: #2ecc71;
+$expense-color: #e74c3c;
+$balance-color: #f39c12;
 
-$background: $green-5;
-$text-light: #1D2E28;
-$accent: $blue-1;
+$transition: all 0.3s ease;
 
-body {
-  margin: 0;
-  font-family: "Poppins", Arial, sans-serif;
-  background-color: #00b4d8;
-  color: #ffffff;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  position: relative;
+:root.dark {
+  --bg-color: #1e1e1e;
+  --card-bg: #2c2c2c;
+  --text-dark: #f8f8f8;
 }
 
-#log-div {
-  align-self: last baseline;
-  margin-right: 3vw;
-  margin-top: 3vh;
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--bg-color, $bg-color);
+  color: var(--text-dark, $text-dark);
+  margin: 0;
+  padding: 2rem;
+  transition: $transition;
+}
 
-    #logout-btn {
-    background-color: #caf0f8;
-    color: #023e8a;
-    padding: 0.5rem 1rem;
+main {
+  max-width: 1200px;
+  margin: auto;
+}
+
+#header {
+  width: 100%;
+  text-align: right;
+  margin-bottom: 20px;
+
+  button {
+    padding: 5px;
+    background: $primary-color;
+    color: white;
+    padding: 0.7rem;
     border: none;
-    border-radius: 8px;
+    border-radius: $radius;
     cursor: pointer;
+    font-weight: bold;
+    transition: $transition;
+
+    &:hover {
+      opacity: 0.9;
+    }
   }
+}
+
+.top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
 }
 
 .currency-wrapper {
-  margin-top: 5rem;
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 1rem;
-}
+  gap: 0.5rem;
 
-.container {
-  background-color: #caf0f8;
-  color: #023e8a;
-  padding: 2rem;
-  margin-top: 2rem;
-  border-radius: 1rem;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-  text-align: center;
-  width: 100%;
-  max-width: 500px;
-}
-
-input {
-  width: 70%;
-  padding: 0.7rem;
-  margin-top: 0.8rem;
-  border-radius: 8px;
-  border: none;
-  font-size: 1rem;
-}
-
-select {
-  width: 30%;
-  padding: 0.7rem;
-  margin-top: 0.8rem;
-  border-radius: 8px;
-  border: none;
-  font-size: 1rem;
-}
-
-#submit {
-  width: 30%;
-  padding: 0.7rem;
-  margin-top: 0.8rem;
-  border-radius: 8px;
-  border: none;
-  font-size: 1rem;
-  background-color: #0098c7;
-  color: white;
-  cursor: pointer;
-
-  &:hover {
-    background-color: #0098c7;
+  select,
+  input {
+    border: 1px solid #ccc;
+    padding: 0.5rem;
+    border-radius: $radius;
+    font-size: 0.9rem;
+    background: var(--card-bg, $card-bg);
+    color: var(--text-dark, $text-dark);
   }
 }
 
-// Summary Section
-.summary {
-  margin-top: 2rem;
-  text-align: center;
-
-  p {
-    margin: 0.3rem 0;
-  }
-
-  span {
-    font-weight: bold;
-  }
-
-  #total-expense {
-    color: red;
-  }
-
-  #balance {
-    color: gold;
-  }
-}
-
-#transaction-list {
-  margin-top: 5vh;
-  text-align: left;
-}
-
-
-// Login and Sign Up Pages //
-
-.auth-page {
-  background-color: $green-5;
-  min-height: 100vh;
+.dark-toggle {
   display: flex;
-  justify-content: center;
   align-items: center;
+  gap: 0.5rem;
+
+  .switch {
+    position: relative;
+    display: inline-block;
+    width: 40px;
+    height: 20px;
+
+    input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      background-color: #ccc;
+      border-radius: 34px;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      transition: $transition;
+
+      &::before {
+        position: absolute;
+        content: "";
+        height: 14px;
+        width: 14px;
+        border-radius: 50%;
+        background-color: white;
+        left: 4px;
+        bottom: 3px;
+        transition: $transition;
+      }
+    }
+
+    input:checked + .slider {
+      background-color: $primary-color;
+
+      &::before {
+        transform: translateX(18px);
+      }
+    }
+  }
 }
 
-sub {
-  margin-bottom: 5vh;
-  font-size: 1.1rem;
-  font-style: italic;
+.layout {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
 }
 
-.auth-box {
-  background-color: $white-1;
-  color: #03045e;
+.main-card {
+  flex: 2;
+  background: var(--card-bg, $card-bg);
+  border-radius: $radius;
   padding: 2rem;
-  border-radius: 1rem;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
-  width: 100%;
-  max-width: 400px;
-  text-align: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  min-width: 300px;
 
-  h2 {
-    margin-bottom: 1rem;
+  h1 {
+    color: $primary-color;
+    margin-bottom: 0.5rem;
   }
 
   form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    display: grid;
+    gap: 1rem;
 
-    input {
-      margin: 0.5rem 0;
-      padding: 0.6rem;
-      border-radius: 0.4rem;
-      border: none;
+    input,
+    select {
+      padding: 0.7rem;
+      border: 1px solid #ddd;
+      border-radius: $radius;
+      background: var(--bg-color, $bg-color);
       font-size: 1rem;
     }
 
     button {
-      width: 75%;
-      margin-top: 1rem;
-      background-color: $accent;
-      color: $text-light;
-      padding: 0.6rem;
+      background: $primary-color;
+      color: white;
+      padding: 0.7rem;
       border: none;
-      border-radius: 0.4rem;
+      border-radius: $radius;
       cursor: pointer;
+      font-weight: bold;
+      transition: $transition;
 
       &:hover {
-        background-color: darken($accent, 10%);
+        opacity: 0.9;
       }
     }
   }
 
-  a {
-    display: inline-block;
-    margin-top: 1rem;
-    color: lighten($accent, 10%);
-    text-decoration: none;
+  .summary {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: space-between;
 
-    &:hover {
-      text-decoration: underline;
+    .income {
+      color: $income-color;
+    }
+
+    .expense {
+      color: $expense-color;
+    }
+
+    .balance {
+      color: $balance-color;
+    }
+  }
+
+  .list-container {
+    height: 150px;
+    margin-top: 2rem;
+    border-radius: $radius;
+    background: #eaeaea;
+  }
+}
+
+.aside-column {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  min-width: 250px;
+
+  .aside-card {
+    background: var(--card-bg, $card-bg);
+    border-radius: $radius;
+    padding: 1.5rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+
+    h2 {
+      color: $primary-color;
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+    }
+
+    form {
+      display: grid;
+      gap: 0.7rem;
+
+      input,
+      select {
+        padding: 0.6rem;
+        border: 1px solid #ccc;
+        border-radius: $radius;
+        background: var(--bg-color, $bg-color);
+      }
+
+      button {
+        background: $primary-color;
+        color: white;
+        padding: 0.6rem;
+        border-radius: $radius;
+        border: none;
+        cursor: pointer;
+        transition: $transition;
+
+        &:hover {
+          opacity: 0.9;
+        }
+      }
+
+      .row {
+        display: flex;
+        gap: 0.5rem;
+      }
     }
   }
 }
