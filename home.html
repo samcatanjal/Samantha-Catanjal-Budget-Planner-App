@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pocket Friendly | Budget Tracker</title>
-  <link rel="stylesheet" href="/SCSS/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pocket Friendly | Budget Tracker</title>
+    <link rel="stylesheet" href="/SCSS/style.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <main>
@@ -13,23 +15,16 @@
         </div>
         <div class="top-bar">
             <div class="currency-wrapper">
-            <label for="currency">Currency Symbol:</label>
-            <select id="currency">
-                <option value="$">$ USD</option>
-                <option value="£">£ GBP</option>
-                <option value="€">€ EUR</option>
-                <option value="₹">₹ INR</option>
-                <option value="¥">¥ JPY</option>
-                <option value="custom">Custom</option>
-            </select>
-            <input type="text" id="custom-currency" placeholder="Custom" maxlength="3" />
-            </div>
-            <div class="dark-toggle">
-            <label class="switch">
-                <input type="checkbox" id="darkModeToggle" />
-                <span class="slider round"></span>
-            </label>
-            <span class="dark-label">Dark mode</span>
+                <label for="currency">Currency Symbol:</label>
+                <select id="currency">
+                    <option value="$">$ USD</option>
+                    <option value="£">£ GBP</option>
+                    <option value="€">€ EUR</option>
+                    <option value="₹">₹ INR</option>
+                    <option value="¥">¥ JPY</option>
+                    <option value="custom">Custom</option>
+                </select>
+                <input type="text" id="custom-currency" placeholder="Custom" maxlength="3" />
             </div>
         </div>
 
@@ -59,18 +54,15 @@
             <div class="aside-column">
                 <div class="aside-card">
                     <h2>Currency Converter</h2>
-                    <form id="converter-form-1">
-                        <input type="number" id="amount-1" placeholder="Amount" />
+                    <form id="converter-form">
+                        <input type="number" id="convert-amount" placeholder="Amount" />
                         <div class="row">
-                        <select id="from-currency-1"></select>
-                        <select id="to-currency-1"></select>
+                        <select id="from-currency"></select>
+                        <select id="to-currency"></select>
                         </div>
                         <button type="submit">Convert</button>
-                        <p id="result-1" class="conversion-result"></p>
+                        <p id="result" class="conversion-result"></p>
                     </form>
-                </div>
-                <div class="aside-card">
-                    <h2>Categories</h2>
                 </div>
             </div>
         </div>
